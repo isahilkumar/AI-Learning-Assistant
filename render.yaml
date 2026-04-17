@@ -1,9 +1,9 @@
 services:
   - type: web
     name: ai-learning-assistant-backend
-    env: node
+    runtime: node
     plan: free
-    rootDirectory: Backend
+    rootDir: Backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
