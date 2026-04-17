@@ -1,0 +1,10 @@
+{
+  "name": "ai-learning-assistant-root",
+  "version": "1.0.0",
+  "description": "Root proxy for AI Learning Assistant",
+  "scripts": {
+    "start": "npm start --prefix Backend",
+    "build": "npm install --prefix Backend"
+  },
+  "dependencies": {}
+}
