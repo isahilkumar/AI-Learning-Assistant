@@ -1,9 +1,0 @@
-{
-  "name": "ai-learning-assistant-monorepo",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "cd Backend && npm start",
-    "build": "cd Backend && npm install"
-  }
-}
