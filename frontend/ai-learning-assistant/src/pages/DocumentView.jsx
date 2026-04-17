@@ -174,7 +174,7 @@ const DocumentView = () => {
 
     if (loading) return <div className="h-screen bg-white flex items-center justify-center text-slate-900">Loading document...</div>;
 
-    const fileUrl = `http://localhost:5000/uploads/${doc.fileName}`;
+    const fileUrl = doc.fileUrl;
 
     return (
         <div className="h-screen bg-white flex flex-col overflow-hidden text-slate-900">

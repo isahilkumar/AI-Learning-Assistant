@@ -2,6 +2,8 @@ const Document = require('../models/Document');
 const pdfParse = require('pdf-parse');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+const cloudinary = require('cloudinary').v2;
 
 // Upload Document
 const uploadDocument = async (req, res) => {
@@ -10,13 +12,16 @@ const uploadDocument = async (req, res) => {
             return res.status(400).json({ message: 'Please upload a PDF file' });
         }
 
-        const dataBuffer = fs.readFileSync(req.file.path);
-        const data = await pdfParse(dataBuffer);
+        // Parse PDF from Cloudinary URL
+        const response = await axios.get(req.file.path, { responseType: 'arraybuffer' });
+        const data = await pdfParse(response.data);
 
         const newDocument = new Document({
             userId: req.user.id,
             title: req.body.title || req.file.originalname,
-            fileName: req.file.filename,
+            fileName: req.file.originalname,
+            fileUrl: req.file.path,
+            publicId: req.file.filename, // cloudinary property
             fileSize: req.file.size,
             textContent: data.text
         });
@@ -60,10 +65,9 @@ const deleteDocument = async (req, res) => {
             return res.status(404).json({ message: 'Document not found' });
         }
 
-        // Delete file from uploads
-        const filePath = path.join(__dirname, '../uploads', document.fileName);
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
+        // Delete file from Cloudinary
+        if (document.publicId) {
+            await cloudinary.uploader.destroy(document.publicId, { resource_type: 'raw' });
         }
 
         await Document.deleteOne({ _id: req.params.id });
