@@ -1,12 +1,14 @@
 services:
   - type: web
-    name: ai-learning-assistant-backend
+    name: ai-learning-assistant-api
     runtime: node
     plan: free
     rootDir: Backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: MONGO_URI
         sync: false
       - key: GEMINI_API_KEY
