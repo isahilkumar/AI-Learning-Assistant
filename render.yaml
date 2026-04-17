@@ -3,8 +3,7 @@ services:
     name: ai-learning-assistant-api
     runtime: node
     plan: free
-    rootDir: Backend
-    buildCommand: npm install
+    buildCommand: npm run build
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
