@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+frontend/ai-learning-assistant/node_modules/
+
+# Environment Variables
+.env
+Backend/.env
+frontend/ai-learning-assistant/.env
+
+# Production Builds
+dist/
+frontend/ai-learning-assistant/dist/
+build/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+*.log
+
+# Temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# Local uploads (don't push student documents)
+Backend/uploads/
