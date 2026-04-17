@@ -9,12 +9,19 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAuth = () => {
-            const savedUser = localStorage.getItem('user');
-            const token = localStorage.getItem('token');
-            if (savedUser && token) {
-                setUser(JSON.parse(savedUser));
+            try {
+                const savedUser = localStorage.getItem('user');
+                const token = localStorage.getItem('token');
+                if (savedUser && token) {
+                    setUser(JSON.parse(savedUser));
+                }
+            } catch (error) {
+                console.error('Auth initialization error:', error);
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
         checkAuth();
     }, []);
