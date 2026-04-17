@@ -6,9 +6,16 @@ const connectDB = require('./config/db');
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
+// 🚀 FAST START: Immediately listen on PORT to satisfy Render health checks
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server is ACTIVE and listening on port ${PORT}`);
+    console.log('🔄 Initializing background services...');
+    
+    // Connect to MongoDB in the background
+    connectDB();
+});
 
 // Middleware
 app.use(cors({
@@ -30,7 +37,3 @@ app.get('/', (req, res) => {
     res.send('AI Learning Assistant API is running');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
